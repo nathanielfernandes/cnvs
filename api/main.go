@@ -12,6 +12,7 @@ func main() {
 	canvas.StartCanvasRunner()
 
 	http.HandleFunc("/canvas/", GetCanvas)
+	http.HandleFunc("/r-canvas/", RedirectToCanvas)
 
 	fmt.Println("Server is running on port 8080")
 	if err := http.ListenAndServe("0.0.0.0:8080", nil); err != nil {
