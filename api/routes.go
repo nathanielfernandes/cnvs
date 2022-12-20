@@ -81,7 +81,17 @@ func GetPreview(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	url, err := preview.GetPreview(track)
+	pr, err := preview.GetPreview(track)
+
+	if (err != nil || pr == preview.PreviewResponse{}) {
+		w.WriteHeader(http.StatusNotFound)
+		w.Write([]byte("Preview not found"))
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+
+	b, err := json.MarshalIndent(pr, "", "  ")
 
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
@@ -89,11 +99,5 @@ func GetPreview(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if url == "" {
-		w.WriteHeader(http.StatusNotFound)
-		w.Write([]byte("Preview not found"))
-		return
-	}
-
-	w.Write([]byte(url))
+	w.Write(b)
 }

@@ -37,11 +37,18 @@ func FetchTrack(trackId string) ([]byte, error) {
 	return bytes, err
 }
 
-func FetchTrackPreviewUrl(trackId string) (string, error) {
-	track, err := FetchTrack(trackId)
+func FetchTrackPreview(trackId string) (PreviewResponse, error) {
+	rtrack, err := FetchTrack(trackId)
 	if err != nil {
-		return "", err
+		return PreviewResponse{}, err
 	}
 
-	return gjson.Get(string(track), "preview_url").String(), nil
+	track := string(rtrack)
+	preview := gjson.Get(track, "preview_url").String()
+	cover_art := gjson.Get(track, "album.images.0.url").String()
+
+	return PreviewResponse{
+		AudioURL:    preview,
+		CoverArtURL: cover_art,
+	}, nil
 }
