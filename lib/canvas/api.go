@@ -6,7 +6,8 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/nathanielfernandes/cnvs/canvas/pb"
+	"github.com/nathanielfernandes/cnvs/lib/canvas/pb"
+	"github.com/nathanielfernandes/cnvs/lib/token"
 	"google.golang.org/protobuf/proto"
 )
 
@@ -41,7 +42,7 @@ func FetchCanvases(trackURIs []string) ([]*pb.CanvasResponse_Canvas, error) {
 			"accept-language": []string{"en"},
 			"user-agent":      []string{"Spotify/8.6.85 iOS/14.4.2 (iPhone12,1)"},
 			"accept-encoding": []string{"gzip, deflate, br"},
-			"authorization":   []string{"Bearer " + CANVAS_TOKEN},
+			"authorization":   []string{"Bearer " + token.ACCESS_TOKEN},
 		},
 	}
 

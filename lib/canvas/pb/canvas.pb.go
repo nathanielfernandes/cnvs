@@ -20,6 +20,61 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+type Type int32
+
+const (
+	Type_IMAGE                Type = 0
+	Type_VIDEO                Type = 1
+	Type_VIDEO_LOOPING        Type = 2
+	Type_VIDEO_LOOPING_RANDOM Type = 3
+	Type_GIF                  Type = 4
+)
+
+// Enum value maps for Type.
+var (
+	Type_name = map[int32]string{
+		0: "IMAGE",
+		1: "VIDEO",
+		2: "VIDEO_LOOPING",
+		3: "VIDEO_LOOPING_RANDOM",
+		4: "GIF",
+	}
+	Type_value = map[string]int32{
+		"IMAGE":                0,
+		"VIDEO":                1,
+		"VIDEO_LOOPING":        2,
+		"VIDEO_LOOPING_RANDOM": 3,
+		"GIF":                  4,
+	}
+)
+
+func (x Type) Enum() *Type {
+	p := new(Type)
+	*p = x
+	return p
+}
+
+func (x Type) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (Type) Descriptor() protoreflect.EnumDescriptor {
+	return file_protobufs_canvas_proto_enumTypes[0].Descriptor()
+}
+
+func (Type) Type() protoreflect.EnumType {
+	return &file_protobufs_canvas_proto_enumTypes[0]
+}
+
+func (x Type) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use Type.Descriptor instead.
+func (Type) EnumDescriptor() ([]byte, []int) {
+	return file_protobufs_canvas_proto_rawDescGZIP(), []int{0}
+}
+
 type CanvasRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -67,6 +122,69 @@ func (x *CanvasRequest) GetTracks() []*CanvasRequest_Track {
 	return nil
 }
 
+type Artist struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	ArtistUri    string `protobuf:"bytes,1,opt,name=artist_uri,json=artistUri,proto3" json:"artist_uri,omitempty"`
+	ArtistName   string `protobuf:"bytes,2,opt,name=artist_name,json=artistName,proto3" json:"artist_name,omitempty"`
+	ArtistImgUrl string `protobuf:"bytes,3,opt,name=artist_img_url,json=artistImgUrl,proto3" json:"artist_img_url,omitempty"`
+}
+
+func (x *Artist) Reset() {
+	*x = Artist{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_protobufs_canvas_proto_msgTypes[1]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *Artist) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Artist) ProtoMessage() {}
+
+func (x *Artist) ProtoReflect() protoreflect.Message {
+	mi := &file_protobufs_canvas_proto_msgTypes[1]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Artist.ProtoReflect.Descriptor instead.
+func (*Artist) Descriptor() ([]byte, []int) {
+	return file_protobufs_canvas_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *Artist) GetArtistUri() string {
+	if x != nil {
+		return x.ArtistUri
+	}
+	return ""
+}
+
+func (x *Artist) GetArtistName() string {
+	if x != nil {
+		return x.ArtistName
+	}
+	return ""
+}
+
+func (x *Artist) GetArtistImgUrl() string {
+	if x != nil {
+		return x.ArtistImgUrl
+	}
+	return ""
+}
+
 type CanvasResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -78,7 +196,7 @@ type CanvasResponse struct {
 func (x *CanvasResponse) Reset() {
 	*x = CanvasResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_protobufs_canvas_proto_msgTypes[1]
+		mi := &file_protobufs_canvas_proto_msgTypes[2]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -91,7 +209,7 @@ func (x *CanvasResponse) String() string {
 func (*CanvasResponse) ProtoMessage() {}
 
 func (x *CanvasResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_protobufs_canvas_proto_msgTypes[1]
+	mi := &file_protobufs_canvas_proto_msgTypes[2]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -104,7 +222,7 @@ func (x *CanvasResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CanvasResponse.ProtoReflect.Descriptor instead.
 func (*CanvasResponse) Descriptor() ([]byte, []int) {
-	return file_protobufs_canvas_proto_rawDescGZIP(), []int{1}
+	return file_protobufs_canvas_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *CanvasResponse) GetCanvases() []*CanvasResponse_Canvas {
@@ -125,7 +243,7 @@ type CanvasRequest_Track struct {
 func (x *CanvasRequest_Track) Reset() {
 	*x = CanvasRequest_Track{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_protobufs_canvas_proto_msgTypes[2]
+		mi := &file_protobufs_canvas_proto_msgTypes[3]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -138,7 +256,7 @@ func (x *CanvasRequest_Track) String() string {
 func (*CanvasRequest_Track) ProtoMessage() {}
 
 func (x *CanvasRequest_Track) ProtoReflect() protoreflect.Message {
-	mi := &file_protobufs_canvas_proto_msgTypes[2]
+	mi := &file_protobufs_canvas_proto_msgTypes[3]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -166,18 +284,20 @@ type CanvasResponse_Canvas struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Id        string                        `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	CanvasUrl string                        `protobuf:"bytes,2,opt,name=canvas_url,json=canvasUrl,proto3" json:"canvas_url,omitempty"`
-	TrackUri  string                        `protobuf:"bytes,5,opt,name=track_uri,json=trackUri,proto3" json:"track_uri,omitempty"`
-	Artist    *CanvasResponse_Canvas_Artist `protobuf:"bytes,6,opt,name=artist,proto3" json:"artist,omitempty"`
-	OtherId   string                        `protobuf:"bytes,9,opt,name=other_id,json=otherId,proto3" json:"other_id,omitempty"`
-	CanvasUri string                        `protobuf:"bytes,11,opt,name=canvas_uri,json=canvasUri,proto3" json:"canvas_uri,omitempty"`
+	Id        string  `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	CanvasUrl string  `protobuf:"bytes,2,opt,name=canvas_url,json=canvasUrl,proto3" json:"canvas_url,omitempty"`
+	Type      Type    `protobuf:"varint,4,opt,name=type,proto3,enum=canvas.Type" json:"type,omitempty"`
+	TrackUri  string  `protobuf:"bytes,5,opt,name=track_uri,json=trackUri,proto3" json:"track_uri,omitempty"`
+	Artist    *Artist `protobuf:"bytes,6,opt,name=artist,proto3" json:"artist,omitempty"`
+	Explicit  bool    `protobuf:"varint,7,opt,name=explicit,proto3" json:"explicit,omitempty"`
+	OtherId   string  `protobuf:"bytes,9,opt,name=other_id,json=otherId,proto3" json:"other_id,omitempty"`
+	CanvasUri string  `protobuf:"bytes,11,opt,name=canvas_uri,json=canvasUri,proto3" json:"canvas_uri,omitempty"`
 }
 
 func (x *CanvasResponse_Canvas) Reset() {
 	*x = CanvasResponse_Canvas{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_protobufs_canvas_proto_msgTypes[3]
+		mi := &file_protobufs_canvas_proto_msgTypes[4]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -190,7 +310,7 @@ func (x *CanvasResponse_Canvas) String() string {
 func (*CanvasResponse_Canvas) ProtoMessage() {}
 
 func (x *CanvasResponse_Canvas) ProtoReflect() protoreflect.Message {
-	mi := &file_protobufs_canvas_proto_msgTypes[3]
+	mi := &file_protobufs_canvas_proto_msgTypes[4]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -203,7 +323,7 @@ func (x *CanvasResponse_Canvas) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CanvasResponse_Canvas.ProtoReflect.Descriptor instead.
 func (*CanvasResponse_Canvas) Descriptor() ([]byte, []int) {
-	return file_protobufs_canvas_proto_rawDescGZIP(), []int{1, 0}
+	return file_protobufs_canvas_proto_rawDescGZIP(), []int{2, 0}
 }
 
 func (x *CanvasResponse_Canvas) GetId() string {
@@ -220,6 +340,13 @@ func (x *CanvasResponse_Canvas) GetCanvasUrl() string {
 	return ""
 }
 
+func (x *CanvasResponse_Canvas) GetType() Type {
+	if x != nil {
+		return x.Type
+	}
+	return Type_IMAGE
+}
+
 func (x *CanvasResponse_Canvas) GetTrackUri() string {
 	if x != nil {
 		return x.TrackUri
@@ -227,11 +354,18 @@ func (x *CanvasResponse_Canvas) GetTrackUri() string {
 	return ""
 }
 
-func (x *CanvasResponse_Canvas) GetArtist() *CanvasResponse_Canvas_Artist {
+func (x *CanvasResponse_Canvas) GetArtist() *Artist {
 	if x != nil {
 		return x.Artist
 	}
 	return nil
+}
+
+func (x *CanvasResponse_Canvas) GetExplicit() bool {
+	if x != nil {
+		return x.Explicit
+	}
+	return false
 }
 
 func (x *CanvasResponse_Canvas) GetOtherId() string {
@@ -248,69 +382,6 @@ func (x *CanvasResponse_Canvas) GetCanvasUri() string {
 	return ""
 }
 
-type CanvasResponse_Canvas_Artist struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	ArtistUri    string `protobuf:"bytes,1,opt,name=artist_uri,json=artistUri,proto3" json:"artist_uri,omitempty"`
-	ArtistName   string `protobuf:"bytes,2,opt,name=artist_name,json=artistName,proto3" json:"artist_name,omitempty"`
-	ArtistImgUrl string `protobuf:"bytes,3,opt,name=artist_img_url,json=artistImgUrl,proto3" json:"artist_img_url,omitempty"`
-}
-
-func (x *CanvasResponse_Canvas_Artist) Reset() {
-	*x = CanvasResponse_Canvas_Artist{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_protobufs_canvas_proto_msgTypes[4]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *CanvasResponse_Canvas_Artist) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*CanvasResponse_Canvas_Artist) ProtoMessage() {}
-
-func (x *CanvasResponse_Canvas_Artist) ProtoReflect() protoreflect.Message {
-	mi := &file_protobufs_canvas_proto_msgTypes[4]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use CanvasResponse_Canvas_Artist.ProtoReflect.Descriptor instead.
-func (*CanvasResponse_Canvas_Artist) Descriptor() ([]byte, []int) {
-	return file_protobufs_canvas_proto_rawDescGZIP(), []int{1, 0, 0}
-}
-
-func (x *CanvasResponse_Canvas_Artist) GetArtistUri() string {
-	if x != nil {
-		return x.ArtistUri
-	}
-	return ""
-}
-
-func (x *CanvasResponse_Canvas_Artist) GetArtistName() string {
-	if x != nil {
-		return x.ArtistName
-	}
-	return ""
-}
-
-func (x *CanvasResponse_Canvas_Artist) GetArtistImgUrl() string {
-	if x != nil {
-		return x.ArtistImgUrl
-	}
-	return ""
-}
-
 var File_protobufs_canvas_proto protoreflect.FileDescriptor
 
 var file_protobufs_canvas_proto_rawDesc = []byte{
@@ -322,33 +393,41 @@ var file_protobufs_canvas_proto_rawDesc = []byte{
 	0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x2e, 0x54, 0x72, 0x61, 0x63, 0x6b, 0x52, 0x06,
 	0x74, 0x72, 0x61, 0x63, 0x6b, 0x73, 0x1a, 0x24, 0x0a, 0x05, 0x54, 0x72, 0x61, 0x63, 0x6b, 0x12,
 	0x1b, 0x0a, 0x09, 0x74, 0x72, 0x61, 0x63, 0x6b, 0x5f, 0x75, 0x72, 0x69, 0x18, 0x01, 0x20, 0x01,
-	0x28, 0x09, 0x52, 0x08, 0x74, 0x72, 0x61, 0x63, 0x6b, 0x55, 0x72, 0x69, 0x22, 0x8a, 0x03, 0x0a,
+	0x28, 0x09, 0x52, 0x08, 0x74, 0x72, 0x61, 0x63, 0x6b, 0x55, 0x72, 0x69, 0x22, 0x6e, 0x0a, 0x06,
+	0x41, 0x72, 0x74, 0x69, 0x73, 0x74, 0x12, 0x1d, 0x0a, 0x0a, 0x61, 0x72, 0x74, 0x69, 0x73, 0x74,
+	0x5f, 0x75, 0x72, 0x69, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x61, 0x72, 0x74, 0x69,
+	0x73, 0x74, 0x55, 0x72, 0x69, 0x12, 0x1f, 0x0a, 0x0b, 0x61, 0x72, 0x74, 0x69, 0x73, 0x74, 0x5f,
+	0x6e, 0x61, 0x6d, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0a, 0x61, 0x72, 0x74, 0x69,
+	0x73, 0x74, 0x4e, 0x61, 0x6d, 0x65, 0x12, 0x24, 0x0a, 0x0e, 0x61, 0x72, 0x74, 0x69, 0x73, 0x74,
+	0x5f, 0x69, 0x6d, 0x67, 0x5f, 0x75, 0x72, 0x6c, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0c,
+	0x61, 0x72, 0x74, 0x69, 0x73, 0x74, 0x49, 0x6d, 0x67, 0x55, 0x72, 0x6c, 0x22, 0xc2, 0x02, 0x0a,
 	0x0e, 0x43, 0x61, 0x6e, 0x76, 0x61, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12,
 	0x39, 0x0a, 0x08, 0x63, 0x61, 0x6e, 0x76, 0x61, 0x73, 0x65, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28,
 	0x0b, 0x32, 0x1d, 0x2e, 0x63, 0x61, 0x6e, 0x76, 0x61, 0x73, 0x2e, 0x43, 0x61, 0x6e, 0x76, 0x61,
 	0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x2e, 0x43, 0x61, 0x6e, 0x76, 0x61, 0x73,
-	0x52, 0x08, 0x63, 0x61, 0x6e, 0x76, 0x61, 0x73, 0x65, 0x73, 0x1a, 0xbc, 0x02, 0x0a, 0x06, 0x43,
+	0x52, 0x08, 0x63, 0x61, 0x6e, 0x76, 0x61, 0x73, 0x65, 0x73, 0x1a, 0xf4, 0x01, 0x0a, 0x06, 0x43,
 	0x61, 0x6e, 0x76, 0x61, 0x73, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28,
 	0x09, 0x52, 0x02, 0x69, 0x64, 0x12, 0x1d, 0x0a, 0x0a, 0x63, 0x61, 0x6e, 0x76, 0x61, 0x73, 0x5f,
 	0x75, 0x72, 0x6c, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x63, 0x61, 0x6e, 0x76, 0x61,
-	0x73, 0x55, 0x72, 0x6c, 0x12, 0x1b, 0x0a, 0x09, 0x74, 0x72, 0x61, 0x63, 0x6b, 0x5f, 0x75, 0x72,
-	0x69, 0x18, 0x05, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x74, 0x72, 0x61, 0x63, 0x6b, 0x55, 0x72,
-	0x69, 0x12, 0x3c, 0x0a, 0x06, 0x61, 0x72, 0x74, 0x69, 0x73, 0x74, 0x18, 0x06, 0x20, 0x01, 0x28,
-	0x0b, 0x32, 0x24, 0x2e, 0x63, 0x61, 0x6e, 0x76, 0x61, 0x73, 0x2e, 0x43, 0x61, 0x6e, 0x76, 0x61,
-	0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x2e, 0x43, 0x61, 0x6e, 0x76, 0x61, 0x73,
-	0x2e, 0x41, 0x72, 0x74, 0x69, 0x73, 0x74, 0x52, 0x06, 0x61, 0x72, 0x74, 0x69, 0x73, 0x74, 0x12,
-	0x19, 0x0a, 0x08, 0x6f, 0x74, 0x68, 0x65, 0x72, 0x5f, 0x69, 0x64, 0x18, 0x09, 0x20, 0x01, 0x28,
-	0x09, 0x52, 0x07, 0x6f, 0x74, 0x68, 0x65, 0x72, 0x49, 0x64, 0x12, 0x1d, 0x0a, 0x0a, 0x63, 0x61,
-	0x6e, 0x76, 0x61, 0x73, 0x5f, 0x75, 0x72, 0x69, 0x18, 0x0b, 0x20, 0x01, 0x28, 0x09, 0x52, 0x09,
-	0x63, 0x61, 0x6e, 0x76, 0x61, 0x73, 0x55, 0x72, 0x69, 0x1a, 0x6e, 0x0a, 0x06, 0x41, 0x72, 0x74,
-	0x69, 0x73, 0x74, 0x12, 0x1d, 0x0a, 0x0a, 0x61, 0x72, 0x74, 0x69, 0x73, 0x74, 0x5f, 0x75, 0x72,
-	0x69, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x61, 0x72, 0x74, 0x69, 0x73, 0x74, 0x55,
-	0x72, 0x69, 0x12, 0x1f, 0x0a, 0x0b, 0x61, 0x72, 0x74, 0x69, 0x73, 0x74, 0x5f, 0x6e, 0x61, 0x6d,
-	0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0a, 0x61, 0x72, 0x74, 0x69, 0x73, 0x74, 0x4e,
-	0x61, 0x6d, 0x65, 0x12, 0x24, 0x0a, 0x0e, 0x61, 0x72, 0x74, 0x69, 0x73, 0x74, 0x5f, 0x69, 0x6d,
-	0x67, 0x5f, 0x75, 0x72, 0x6c, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0c, 0x61, 0x72, 0x74,
-	0x69, 0x73, 0x74, 0x49, 0x6d, 0x67, 0x55, 0x72, 0x6c, 0x42, 0x06, 0x5a, 0x04, 0x2e, 0x2f, 0x70,
-	0x62, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x73, 0x55, 0x72, 0x6c, 0x12, 0x20, 0x0a, 0x04, 0x74, 0x79, 0x70, 0x65, 0x18, 0x04, 0x20, 0x01,
+	0x28, 0x0e, 0x32, 0x0c, 0x2e, 0x63, 0x61, 0x6e, 0x76, 0x61, 0x73, 0x2e, 0x54, 0x79, 0x70, 0x65,
+	0x52, 0x04, 0x74, 0x79, 0x70, 0x65, 0x12, 0x1b, 0x0a, 0x09, 0x74, 0x72, 0x61, 0x63, 0x6b, 0x5f,
+	0x75, 0x72, 0x69, 0x18, 0x05, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x74, 0x72, 0x61, 0x63, 0x6b,
+	0x55, 0x72, 0x69, 0x12, 0x26, 0x0a, 0x06, 0x61, 0x72, 0x74, 0x69, 0x73, 0x74, 0x18, 0x06, 0x20,
+	0x01, 0x28, 0x0b, 0x32, 0x0e, 0x2e, 0x63, 0x61, 0x6e, 0x76, 0x61, 0x73, 0x2e, 0x41, 0x72, 0x74,
+	0x69, 0x73, 0x74, 0x52, 0x06, 0x61, 0x72, 0x74, 0x69, 0x73, 0x74, 0x12, 0x1a, 0x0a, 0x08, 0x65,
+	0x78, 0x70, 0x6c, 0x69, 0x63, 0x69, 0x74, 0x18, 0x07, 0x20, 0x01, 0x28, 0x08, 0x52, 0x08, 0x65,
+	0x78, 0x70, 0x6c, 0x69, 0x63, 0x69, 0x74, 0x12, 0x19, 0x0a, 0x08, 0x6f, 0x74, 0x68, 0x65, 0x72,
+	0x5f, 0x69, 0x64, 0x18, 0x09, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x6f, 0x74, 0x68, 0x65, 0x72,
+	0x49, 0x64, 0x12, 0x1d, 0x0a, 0x0a, 0x63, 0x61, 0x6e, 0x76, 0x61, 0x73, 0x5f, 0x75, 0x72, 0x69,
+	0x18, 0x0b, 0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x63, 0x61, 0x6e, 0x76, 0x61, 0x73, 0x55, 0x72,
+	0x69, 0x2a, 0x52, 0x0a, 0x04, 0x54, 0x79, 0x70, 0x65, 0x12, 0x09, 0x0a, 0x05, 0x49, 0x4d, 0x41,
+	0x47, 0x45, 0x10, 0x00, 0x12, 0x09, 0x0a, 0x05, 0x56, 0x49, 0x44, 0x45, 0x4f, 0x10, 0x01, 0x12,
+	0x11, 0x0a, 0x0d, 0x56, 0x49, 0x44, 0x45, 0x4f, 0x5f, 0x4c, 0x4f, 0x4f, 0x50, 0x49, 0x4e, 0x47,
+	0x10, 0x02, 0x12, 0x18, 0x0a, 0x14, 0x56, 0x49, 0x44, 0x45, 0x4f, 0x5f, 0x4c, 0x4f, 0x4f, 0x50,
+	0x49, 0x4e, 0x47, 0x5f, 0x52, 0x41, 0x4e, 0x44, 0x4f, 0x4d, 0x10, 0x03, 0x12, 0x07, 0x0a, 0x03,
+	0x47, 0x49, 0x46, 0x10, 0x04, 0x42, 0x06, 0x5a, 0x04, 0x2e, 0x2f, 0x70, 0x62, 0x62, 0x06, 0x70,
+	0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -363,23 +442,26 @@ func file_protobufs_canvas_proto_rawDescGZIP() []byte {
 	return file_protobufs_canvas_proto_rawDescData
 }
 
+var file_protobufs_canvas_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
 var file_protobufs_canvas_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
 var file_protobufs_canvas_proto_goTypes = []interface{}{
-	(*CanvasRequest)(nil),                // 0: canvas.CanvasRequest
-	(*CanvasResponse)(nil),               // 1: canvas.CanvasResponse
-	(*CanvasRequest_Track)(nil),          // 2: canvas.CanvasRequest.Track
-	(*CanvasResponse_Canvas)(nil),        // 3: canvas.CanvasResponse.Canvas
-	(*CanvasResponse_Canvas_Artist)(nil), // 4: canvas.CanvasResponse.Canvas.Artist
+	(Type)(0),                     // 0: canvas.Type
+	(*CanvasRequest)(nil),         // 1: canvas.CanvasRequest
+	(*Artist)(nil),                // 2: canvas.Artist
+	(*CanvasResponse)(nil),        // 3: canvas.CanvasResponse
+	(*CanvasRequest_Track)(nil),   // 4: canvas.CanvasRequest.Track
+	(*CanvasResponse_Canvas)(nil), // 5: canvas.CanvasResponse.Canvas
 }
 var file_protobufs_canvas_proto_depIdxs = []int32{
-	2, // 0: canvas.CanvasRequest.tracks:type_name -> canvas.CanvasRequest.Track
-	3, // 1: canvas.CanvasResponse.canvases:type_name -> canvas.CanvasResponse.Canvas
-	4, // 2: canvas.CanvasResponse.Canvas.artist:type_name -> canvas.CanvasResponse.Canvas.Artist
-	3, // [3:3] is the sub-list for method output_type
-	3, // [3:3] is the sub-list for method input_type
-	3, // [3:3] is the sub-list for extension type_name
-	3, // [3:3] is the sub-list for extension extendee
-	0, // [0:3] is the sub-list for field type_name
+	4, // 0: canvas.CanvasRequest.tracks:type_name -> canvas.CanvasRequest.Track
+	5, // 1: canvas.CanvasResponse.canvases:type_name -> canvas.CanvasResponse.Canvas
+	0, // 2: canvas.CanvasResponse.Canvas.type:type_name -> canvas.Type
+	2, // 3: canvas.CanvasResponse.Canvas.artist:type_name -> canvas.Artist
+	4, // [4:4] is the sub-list for method output_type
+	4, // [4:4] is the sub-list for method input_type
+	4, // [4:4] is the sub-list for extension type_name
+	4, // [4:4] is the sub-list for extension extendee
+	0, // [0:4] is the sub-list for field type_name
 }
 
 func init() { file_protobufs_canvas_proto_init() }
@@ -401,7 +483,7 @@ func file_protobufs_canvas_proto_init() {
 			}
 		}
 		file_protobufs_canvas_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CanvasResponse); i {
+			switch v := v.(*Artist); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -413,7 +495,7 @@ func file_protobufs_canvas_proto_init() {
 			}
 		}
 		file_protobufs_canvas_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CanvasRequest_Track); i {
+			switch v := v.(*CanvasResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -425,7 +507,7 @@ func file_protobufs_canvas_proto_init() {
 			}
 		}
 		file_protobufs_canvas_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CanvasResponse_Canvas); i {
+			switch v := v.(*CanvasRequest_Track); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -437,7 +519,7 @@ func file_protobufs_canvas_proto_init() {
 			}
 		}
 		file_protobufs_canvas_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CanvasResponse_Canvas_Artist); i {
+			switch v := v.(*CanvasResponse_Canvas); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -454,13 +536,14 @@ func file_protobufs_canvas_proto_init() {
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_protobufs_canvas_proto_rawDesc,
-			NumEnums:      0,
+			NumEnums:      1,
 			NumMessages:   5,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
 		GoTypes:           file_protobufs_canvas_proto_goTypes,
 		DependencyIndexes: file_protobufs_canvas_proto_depIdxs,
+		EnumInfos:         file_protobufs_canvas_proto_enumTypes,
 		MessageInfos:      file_protobufs_canvas_proto_msgTypes,
 	}.Build()
 	File_protobufs_canvas_proto = out.File

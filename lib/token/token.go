@@ -1,4 +1,4 @@
-package canvas
+package token
 
 import (
 	"encoding/json"
@@ -7,49 +7,49 @@ import (
 	"time"
 )
 
-const CANVAS_TOKEN_URL = "https://open.spotify.com/get_access_token?reason=transport&productType=web_player"
+const ACCESS_TOKEN_URL = "https://open.spotify.com/get_access_token?reason=transport&productType=web_player"
 
 // no need for a mutex due to infrequent writes
-var CANVAS_TOKEN = ""
+var ACCESS_TOKEN = ""
 
-func setCanvasToken() uint {
+func setAccessToken() uint {
 	// make request to get canvas token
-	fmt.Println("Refreshing canvas token")
+	fmt.Println("Refreshing access token")
 
-	resp, err := http.Get(CANVAS_TOKEN_URL)
+	resp, err := http.Get(ACCESS_TOKEN_URL)
 	if err != nil {
-		panic("Error getting canvas token: " + err.Error())
+		panic("Error getting access token: " + err.Error())
 	}
 
 	defer resp.Body.Close()
 
 	if resp.StatusCode != 200 {
-		panic("Error getting canvas token: " + resp.Status)
+		panic("Error getting access token: " + resp.Status)
 	}
 
 	// decode response
-	var token canvasTokenResponse
+	var token accessTokenResponse
 	if err := json.NewDecoder(resp.Body).Decode(&token); err != nil {
-		panic("Error decoding canvas token response: " + err.Error())
+		panic("Error decoding access token response: " + err.Error())
 	}
 
 	// set canvas token
-	CANVAS_TOKEN = token.AccessToken
+	ACCESS_TOKEN = token.AccessToken
 
 	return token.ExpiresOn
 }
 
-type canvasTokenResponse struct {
+type accessTokenResponse struct {
 	ClientID    string `json:"clientId"`
 	AccessToken string `json:"accessToken"`
 	ExpiresOn   uint   `json:"accessTokenExpirationTimestampMs"`
 	IsAnonymous bool   `json:"isAnonymous"`
 }
 
-func startCanvasTokenReferesher() {
-	fmt.Println("Starting canvas token refresh")
+func StartAccessTokenReferesher() {
+	fmt.Println("Starting access token refresh")
 	// set timer to refresh canvas token
-	expiresTimeStampMs := setCanvasToken()
+	expiresTimeStampMs := setAccessToken()
 
 	go func() {
 		for {
@@ -57,8 +57,8 @@ func startCanvasTokenReferesher() {
 			time.Sleep(time.Duration(expiresTimeStampMs - 30000))
 
 			// wait until token expires
-			expiresTimeStampMs = setCanvasToken()
-			fmt.Println("Canvas token refreshed")
+			expiresTimeStampMs = setAccessToken()
+			fmt.Println("Access token refreshed")
 		}
 	}()
 }

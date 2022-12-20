@@ -1,4 +1,4 @@
-package canvas
+package main
 
 import "regexp"
 
@@ -18,11 +18,22 @@ func GetSpotifyUriFromId(id string) string {
 	return spotifyIdMatch.FindStringSubmatch(id)[1]
 }
 
+func GetSpotifyIdFromAny(input string) string {
+	if spotifyUrlMatch.MatchString(input) {
+		return GetSpotifyUriFromUrl(input)
+	} else if spotifyUriMatch.MatchString(input) {
+		return GetSpotifyUriFromUri(input)
+	} else if spotifyIdMatch.MatchString(input) {
+		return GetSpotifyUriFromId(input)
+	}
+	return ""
+}
+
 func GetSpotifyUriFromAny(input string) string {
 	if spotifyUrlMatch.MatchString(input) {
 		return "spotify:track:" + GetSpotifyUriFromUrl(input)
 	} else if spotifyUriMatch.MatchString(input) {
-		return "spotify:track:" + GetSpotifyUriFromUri(input)
+		return input
 	} else if spotifyIdMatch.MatchString(input) {
 		return "spotify:track:" + GetSpotifyUriFromId(input)
 	}

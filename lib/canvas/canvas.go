@@ -6,7 +6,8 @@ import (
 	"time"
 
 	"github.com/bep/debounce"
-	"github.com/nathanielfernandes/cnvs/canvas/pb"
+	"github.com/nathanielfernandes/cnvs/lib/canvas/pb"
+	"github.com/nathanielfernandes/cnvs/lib/token"
 )
 
 var canvasRequests = make(chan string)
@@ -17,7 +18,9 @@ var cacheLock = sync.RWMutex{}
 var cachedCanvases = make(map[string]*pb.CanvasResponse_Canvas)
 
 func StartCanvasRunner() {
-	startCanvasTokenReferesher()
+	if token.ACCESS_TOKEN == "" {
+		panic("No access token, cannot start canvas runner")
+	}
 
 	pending := []string{}
 
@@ -32,7 +35,7 @@ func StartCanvasRunner() {
 					canvases, err := FetchCanvasesMapped(pending)
 
 					if err != nil {
-						panic(err)
+						fmt.Println(err.Error())
 					}
 
 					// Send the response to all the pending requests
@@ -55,15 +58,12 @@ func StartCanvasRunner() {
 
 func CacheGet(trackURI string) (*pb.CanvasResponse_Canvas, bool) {
 	cacheLock.RLock()
-	defer cacheLock.RUnlock()
-
 	canvas, ok := cachedCanvases[trackURI]
+	cacheLock.RUnlock()
 	return canvas, ok
 }
 
 func GetCanvas(trackURI string) (*pb.CanvasResponse_Canvas, error) {
-	trackURI = GetSpotifyUriFromAny(trackURI)
-
 	// If the canvas is cached, just return it
 	if canvas, ok := CacheGet(trackURI); ok {
 		fmt.Println("Using cached canvas for", trackURI)

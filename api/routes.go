@@ -4,7 +4,8 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/nathanielfernandes/cnvs/canvas"
+	"github.com/nathanielfernandes/cnvs/lib/canvas"
+	"github.com/nathanielfernandes/cnvs/lib/preview"
 )
 
 func addCors(w http.ResponseWriter) {
@@ -16,7 +17,7 @@ func addCors(w http.ResponseWriter) {
 func GetCanvas(w http.ResponseWriter, r *http.Request) {
 	addCors(w)
 	// trim the /canvas/ part of the path
-	track := r.URL.Path[8:]
+	track := GetSpotifyUriFromAny(r.URL.Path[8:])
 
 	if track == "" {
 		w.WriteHeader(http.StatusBadRequest)
@@ -24,9 +25,9 @@ func GetCanvas(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	canvas, err := canvas.GetCanvas(track)
+	cv, err := canvas.GetCanvas(track)
 
-	if canvas == nil || err != nil {
+	if cv == nil || err != nil {
 		w.WriteHeader(http.StatusNotFound)
 		w.Write([]byte("Canvas not found"))
 		return
@@ -34,7 +35,7 @@ func GetCanvas(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
 
-	b, err := json.MarshalIndent(canvas, "", "  ")
+	b, err := json.MarshalIndent(cv, "", "  ")
 
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
@@ -66,4 +67,33 @@ func RedirectToCanvas(w http.ResponseWriter, r *http.Request) {
 	}
 
 	http.Redirect(w, r, canvas.CanvasUrl, http.StatusFound)
+}
+
+func GetPreview(w http.ResponseWriter, r *http.Request) {
+	addCors(w)
+
+	// trim the /preview/ part of the path
+	track := GetSpotifyIdFromAny(r.URL.Path[9:])
+
+	if track == "" {
+		w.WriteHeader(http.StatusBadRequest)
+		w.Write([]byte("Invalid track id"))
+		return
+	}
+
+	url, err := preview.GetPreview(track)
+
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
+		return
+	}
+
+	if url == "" {
+		w.WriteHeader(http.StatusNotFound)
+		w.Write([]byte("Preview not found"))
+		return
+	}
+
+	w.Write([]byte(url))
 }
