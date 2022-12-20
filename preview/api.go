@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/nathanielfernandes/cnvs/lib/token"
+	"github.com/nathanielfernandes/cnvs/token"
 	"github.com/tidwall/gjson"
 )
 

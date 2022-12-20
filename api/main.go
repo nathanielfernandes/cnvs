@@ -5,9 +5,9 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/nathanielfernandes/cnvs/lib/canvas"
-	"github.com/nathanielfernandes/cnvs/lib/preview"
-	"github.com/nathanielfernandes/cnvs/lib/token"
+	"github.com/nathanielfernandes/cnvs/canvas"
+	"github.com/nathanielfernandes/cnvs/preview"
+	"github.com/nathanielfernandes/cnvs/token"
 )
 
 func main() {

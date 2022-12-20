@@ -6,8 +6,8 @@ import (
 	"time"
 
 	"github.com/bep/debounce"
-	"github.com/nathanielfernandes/cnvs/lib/canvas/pb"
-	"github.com/nathanielfernandes/cnvs/lib/token"
+	"github.com/nathanielfernandes/cnvs/canvas/pb"
+	"github.com/nathanielfernandes/cnvs/token"
 )
 
 var canvasRequests = make(chan string)

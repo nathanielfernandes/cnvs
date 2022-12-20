@@ -3,7 +3,7 @@ package preview
 import (
 	"sync"
 
-	"github.com/nathanielfernandes/cnvs/lib/token"
+	"github.com/nathanielfernandes/cnvs/token"
 )
 
 var previewRequests = make(chan string)

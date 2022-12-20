@@ -6,8 +6,8 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/nathanielfernandes/cnvs/lib/canvas/pb"
-	"github.com/nathanielfernandes/cnvs/lib/token"
+	"github.com/nathanielfernandes/cnvs/canvas/pb"
+	"github.com/nathanielfernandes/cnvs/token"
 	"google.golang.org/protobuf/proto"
 )
 

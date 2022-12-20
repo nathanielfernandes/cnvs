@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/nathanielfernandes/cnvs/lib/canvas"
-	"github.com/nathanielfernandes/cnvs/lib/preview"
+	"github.com/nathanielfernandes/cnvs/canvas"
+	"github.com/nathanielfernandes/cnvs/preview"
 )
 
 func addCors(w http.ResponseWriter) {
