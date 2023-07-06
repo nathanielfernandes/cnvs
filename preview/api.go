@@ -46,9 +46,15 @@ func FetchTrackPreview(trackId string) (PreviewResponse, error) {
 	track := string(rtrack)
 	preview := gjson.Get(track, "preview_url").String()
 	cover_art := gjson.Get(track, "album.images.0.url").String()
+	track_name := gjson.Get(track, "name").String()
+	artist_name := gjson.Get(track, "artists.0.name").String()
+	album_name := gjson.Get(track, "album.name").String()
 
 	return PreviewResponse{
 		AudioURL:    preview,
 		CoverArtURL: cover_art,
+		TrackName:   track_name,
+		ArtistName:  artist_name,
+		AlbumName:   album_name,
 	}, nil
 }
