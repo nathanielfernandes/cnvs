@@ -5,5 +5,6 @@ type PreviewResponse struct {
 	CoverArtURL string `json:"cover_art_url"`
 	TrackName   string `json:"track_name"`
 	ArtistName  string `json:"artist_name"`
+	ArtistURL   string `json:"artist_url"`
 	AlbumName   string `json:"album_name"`
 }
