@@ -5,7 +5,7 @@ type PreviewResponse struct {
 	CoverArt        CoverArt `json:"cover_art"`
 	TrackName       string   `json:"track_name"`
 	Artists         []Artist `json:"artists"`
-	AlbumName       string   `json:"album_name"`
+	AlbumName       string   `json:"album_name,omitempty"`
 	BackgroundColor string   `json:"background_color"`
 }
 
