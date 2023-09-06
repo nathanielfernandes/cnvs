@@ -48,6 +48,13 @@ func ScrapeTrack(trackId string) (string, error) {
 	return matches[1], nil
 }
 
+func min(a, b int) int {
+	if a < b {
+		return a
+	}
+	return b
+}
+
 func ScrapeTrackPreview(trackId string) (PreviewResponse, error) {
 	rtrack, err := ScrapeTrack(trackId)
 
@@ -77,10 +84,17 @@ func ScrapeTrackPreview(trackId string) (PreviewResponse, error) {
 	audio_preview_url := gjson.Get(data, "entity.audioPreview.url").String()
 
 	rcover_art := gjson.Get(data, "entity.coverArt.sources").Array()
-	cover_art := CoverArt{
-		Small:  rcover_art[0].Map()["url"].String(),
-		Medium: rcover_art[1].Map()["url"].String(),
-		Large:  rcover_art[2].Map()["url"].String(),
+
+	cover_art := CoverArt{}
+
+	min_idx := len(rcover_art) - 1
+
+	if len(rcover_art) > 0 {
+		cover_art = CoverArt{
+			Small:  rcover_art[min_idx].Map()["url"].String(),
+			Medium: rcover_art[min(1, min_idx)].Map()["url"].String(),
+			Large:  rcover_art[min(2, min_idx)].Map()["url"].String(),
+		}
 	}
 
 	return PreviewResponse{
