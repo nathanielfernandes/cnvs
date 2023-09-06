@@ -32,6 +32,22 @@ func StartPreviewRunner() {
 	}()
 }
 
+func StartScrapeRunner() {
+	// Listen for new requests
+	go func() {
+		for trackURI := range previewRequests {
+			// Make a new request
+			preview, err := ScrapeTrackPreview(trackURI)
+
+			if err != nil {
+				println(err.Error())
+			}
+
+			pendingPreviews[trackURI] <- preview
+		}
+	}()
+}
+
 func CacheGet(trackURI string) (PreviewResponse, bool) {
 	cacheLock.RLock()
 	preview, ok := cachedPreviews[trackURI]

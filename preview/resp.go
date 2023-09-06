@@ -1,10 +1,21 @@
 package preview
 
 type PreviewResponse struct {
-	AudioURL    string `json:"audio_url"`
-	CoverArtURL string `json:"cover_art_url"`
-	TrackName   string `json:"track_name"`
-	ArtistName  string `json:"artist_name"`
-	ArtistURL   string `json:"artist_url"`
-	AlbumName   string `json:"album_name"`
+	AudioURL        string   `json:"audio_url"`
+	CoverArt        CoverArt `json:"cover_art"`
+	TrackName       string   `json:"track_name"`
+	Artists         []Artist `json:"artists"`
+	AlbumName       string   `json:"album_name"`
+	BackgroundColor string   `json:"background_color"`
+}
+
+type Artist struct {
+	Name string `json:"name"`
+	URL  string `json:"url"`
+}
+
+type CoverArt struct {
+	Small  string `json:"small"`
+	Medium string `json:"medium"`
+	Large  string `json:"large"`
 }

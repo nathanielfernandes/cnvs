@@ -83,7 +83,7 @@ func GetPreview(w http.ResponseWriter, r *http.Request) {
 
 	pr, err := preview.GetPreview(track)
 
-	if (err != nil || pr == preview.PreviewResponse{}) {
+	if err != nil {
 		w.WriteHeader(http.StatusNotFound)
 		w.Write([]byte("Preview not found"))
 		return

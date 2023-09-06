@@ -52,11 +52,15 @@ func FetchTrackPreview(trackId string) (PreviewResponse, error) {
 	artist_url := gjson.Get(track, "artists.0.external_urls.spotify").String()
 
 	return PreviewResponse{
-		AudioURL:    preview,
-		CoverArtURL: cover_art,
-		TrackName:   track_name,
-		ArtistName:  artist_name,
-		AlbumName:   album_name,
-		ArtistURL:   artist_url,
+		AudioURL:  preview,
+		CoverArt:  CoverArt{Small: cover_art, Medium: cover_art, Large: cover_art},
+		TrackName: track_name,
+		Artists: []Artist{
+			Artist{
+				Name: artist_name,
+				URL:  artist_url,
+			},
+		},
+		AlbumName: album_name,
 	}, nil
 }

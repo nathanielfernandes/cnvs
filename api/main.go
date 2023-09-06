@@ -13,7 +13,8 @@ import (
 func main() {
 	token.StartAccessTokenReferesher()
 	canvas.StartCanvasRunner()
-	preview.StartPreviewRunner()
+	// preview.StartPreviewRunner()
+	preview.StartScrapeRunner()
 
 	http.HandleFunc("/canvas/", GetCanvas)
 	http.HandleFunc("/r-canvas/", RedirectToCanvas)
