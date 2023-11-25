@@ -56,7 +56,7 @@ func FetchTrackPreview(trackId string) (PreviewResponse, error) {
 		CoverArt:  CoverArt{Small: cover_art, Medium: cover_art, Large: cover_art},
 		TrackName: track_name,
 		Artists: []Artist{
-			Artist{
+			{
 				Name: artist_name,
 				URL:  artist_url,
 			},

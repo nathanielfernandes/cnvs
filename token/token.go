@@ -51,14 +51,20 @@ func StartAccessTokenReferesher() {
 	// set timer to refresh canvas token
 	expiresTimeStampMs := setAccessToken()
 
+	// set timer to refresh canvas token
 	go func() {
 		for {
-			// sleep until token expires, with a 30 second buffer
-			time.Sleep(time.Duration(expiresTimeStampMs - 30000))
-
 			// wait until token expires
+			// convert to seconds
+			expiresOn := expiresTimeStampMs / 1000
+			// get current time
+			now := uint(time.Now().UnixMilli() / 1000)
+			// wait until token expires
+			waitTime := expiresOn - now
+			// wait until token expires
+			time.Sleep(time.Duration(waitTime) * time.Second)
+			// refresh token
 			expiresTimeStampMs = setAccessToken()
-			fmt.Println("Access token refreshed")
 		}
 	}()
 }

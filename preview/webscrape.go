@@ -71,7 +71,6 @@ func ScrapeTrackPreview(trackId string) (PreviewResponse, error) {
 	artists := make([]Artist, len(rartists))
 	for i, artist := range rartists {
 		m := artist.Map()
-
 		name := m["name"].String()
 		url := strings.Split(m["uri"].String(), ":")[2]
 		url = "https://open.spotify.com/artist/" + url

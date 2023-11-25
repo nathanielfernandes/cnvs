@@ -7,6 +7,7 @@ type PreviewResponse struct {
 	Artists         []Artist `json:"artists"`
 	AlbumName       string   `json:"album_name,omitempty"`
 	BackgroundColor string   `json:"background_color"`
+	ReleaseDate     string   `json:"release_date,omitempty"`
 }
 
 type Artist struct {
